@@ -1,6 +1,19 @@
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const exphbs = require('express-handlebars');
+
 const app = express();
+const handlebars = exphbs.create({
+  layoutsDir: path.join(__dirname, "views/layouts"),
+  partialsDir: path.join(__dirname, "views/partials"),
+  defaultLayout: 'main',
+  extname: 'handlebars'
+});
+
+app.engine('handlebars', handlebars.engine);
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views'));
 
 const port = 3000;
 
@@ -24,7 +37,7 @@ app.locals = {
 };
 
 // GET resources
-app.get('/', (req, res) => res.send(app.locals.tweets));
+app.get('/', (req, res) => res.render("home", { tweets: app.locals.tweets }));
 
 // POST to create new resource
 app.post('/', (req, res) => {
