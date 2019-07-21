@@ -1,8 +1,42 @@
 <h1>Home</h1>
+<form method="POST" action="/">
+  <input name="text" id="user-tweet_add" type="text" placeholder="What is happening..?">
+  <button type="submit">Tweet</button>
+</form>
 {{#each tweets}}
-<div class="tweet" style="border:1px solid black">
-  <p>{{this.text}}</p>
-  <p>{{this.user}}</p>
-  <p>{{this.id}}</p>
+<div class="nav-bar">
+  <div class="nav-bar_header">
+    <img class="user-pic" src="src/styles/images/alameda.jpg" alt="user-pic" />
+    <h3 class="user-home">Home</h3>
+    <img class="user-starred" src="src/styles/images/starredTweets.png" alt="user-starred" />
+  </div>
+  <div class="nav-bar-subheader">
+    <img class="user-timeline" src="src/styles/images/timeline.png" alt="user-home" />
+    <img class="user-search" src="src/styles/images/research.png" alt="user-search" />
+    <img class="user-notifications" src="src/styles/images/notification.png" alt="user-notifications" />
+    <img class="user-messages" src="src/styles/images/mail.png" alt="user-messages" />
+  </div>
 </div>
+<div class="tweet">
+  <div id="tweet__header" class="feed">
+    <span id="feed-user__pic" class="feed-user__pic">
+      <img style="width: 100px" src="img/alameda.jpg" />
+    </span>
+    <span id="feed-user__name" class="feed-user">{{this.user}}</span>
+  </div>
+  <div id="tweet__body" class="tweet">
+    <p class="tweet__description">{{this.text}}</p>
+    <div class="tweet__card"></div>
+  </div>
+  <div class="tweet__footer">
+    <img class="tweet__interaction" src="img/comment.png" alt="user-home" />
+    <img class="tweet__interaction" src="img/retweet.png" alt="user-search" />
+    <img class="tweet__interaction" src="img/like.png" alt="user-notifications" />
+    <img class="tweet__interaction" src="img/share.png" alt="user-messages" />
+    <form method="POST" action="/{{this.id}}?_method=DELETE">
+      <button type="submit">Delete this Tweet</button>
+    </form>
+  </div>
+</div>
+
 {{/each}}

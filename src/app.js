@@ -19,6 +19,7 @@ const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '/public')));
 
 
 app.locals = {
@@ -43,8 +44,8 @@ app.get('/', (req, res) => res.render("home", { tweets: app.locals.tweets }));
 app.post('/', (req, res) => {
   const tweet = req.body;
   tweet.id = uniqueId();
-  app.locals.tweets.push(tweet);
-  res.send(app.locals.tweets);
+  app.locals.tweets.unshift(tweet);
+  res.redirect("/");
 });
 
 // PUT update an existing resource with a given id
