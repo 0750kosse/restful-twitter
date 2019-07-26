@@ -26,14 +26,20 @@ app.locals = {
   tweets: [
     {
       id: '_7qrn7fdfs',
-      text: "good morning",
-      user: "Tweeter"
+      text: "Learn these JavaScript fundamentals and become a better developer",
+      user: "UserName",
+      handle: "@UserName",
+      timestamp: "10min",
+      link: "MDN.com"
     },
     {
       id: '_jbkorcf3v',
       text: "good evening",
-      user: "Broncano"
-    },
+      user: "Broncano",
+      handle: "@Broncano",
+      timestamp: "30min",
+      link: "Google.com"
+    }
   ]
 };
 
@@ -43,7 +49,12 @@ app.get('/', (req, res) => res.render("home", { tweets: app.locals.tweets }));
 // POST to create new resource
 app.post('/', (req, res) => {
   const tweet = req.body;
+  tweet.user = app.locals.tweets[0].user;
+  tweet.handle = app.locals.tweets[0].handle;
+  tweet.timestamp = app.locals.tweets[0].timestamp;
+  tweet.link = app.locals.tweets[0].link;
   tweet.id = uniqueId();
+  console.log(tweet);
   app.locals.tweets.unshift(tweet);
   res.redirect("/");
 });
