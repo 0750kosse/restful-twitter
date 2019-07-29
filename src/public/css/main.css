@@ -26,11 +26,6 @@ body,html {
   border-radius: 50%;
 }
 
-.feed-user__pic {
-  background-image: url(img/alameda.jpg);
-  background-size: contain;
-}
-
 .user-home {
   margin-left: 30px;
   flex:0.8;
