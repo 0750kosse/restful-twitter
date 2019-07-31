@@ -2,8 +2,15 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
+const mongoose = require('mongoose');
+const Tweet = require('../models/tweet');
 
+//set up express app
 const app = express();
+//connect to mongodb
+mongoose.connect('mongodb://localhost/tweetapp')
+mongoose.Promise = global.Promise;
+
 const handlebars = exphbs.create({
   layoutsDir: path.join(__dirname, "views/layouts"),
   partialsDir: path.join(__dirname, "views/partials"),
@@ -21,71 +28,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/public')));
 
-
-app.locals = {
-  tweets: [
-    {
-      id: '_7qrn7fdfs',
-      text: "Learn these JavaScript fundamentals and become a better developer",
-      user: "UserName",
-      handle: "@UserName",
-      timestamp: "10min",
-      link: "MDN.com"
-    },
-    {
-      id: '_jbkorcf3v',
-      text: "good evening",
-      user: "Broncano",
-      handle: "@Broncano",
-      timestamp: "30min",
-      link: "Google.com"
-    }
-  ]
-};
-
 // GET resources
-app.get('/', (req, res) => res.render("home", { tweets: app.locals.tweets }));
+app.get('/', (req, res) => res.send({ type: 'GET' }));
 
 // POST to create new resource
 app.post('/', (req, res) => {
-  const tweet = req.body;
-  tweet.user = app.locals.tweets[0].user;
-  tweet.handle = app.locals.tweets[0].handle;
-  tweet.timestamp = app.locals.tweets[0].timestamp;
-  tweet.link = app.locals.tweets[0].link;
-  tweet.id = uniqueId();
-  console.log(tweet);
-  app.locals.tweets.unshift(tweet);
-  res.redirect("/");
+
+  Tweet.create(req.body).then(function (tweet) {
+    res.send(tweet);
+  });
 });
 
 // PUT update an existing resource with a given id
-app.put('/:id', (req, res) => {
-  const idToUpdate = req.params.id;
-
-  const foundIndex = app.locals.tweets.findIndex(tweet => tweet.id === idToUpdate);
-  console.log('index inside Array is', foundIndex);
-
-  const tweetToUpdate = app.locals.tweets[foundIndex]
-  app.locals.tweets[foundIndex] = {
-    id: tweetToUpdate.id,
-    ...req.body
-  }
-
-  console.log('tweets updated', app.locals.tweets)
-  res.send('this will be the update/replace action')
-});
+app.put('/:id', (req, res) => res.send({ type: 'PUT' }));
 
 // DELETE to delete an existing resource with a given id
-app.delete('/:id', (req, res) => {
-  const idToDelete = req.params.id;
-  app.locals.tweets = app.locals.tweets.filter(tweet => tweet.id != idToDelete)
-  res.send(`deleted tweet ${idToDelete}`);
-});
+app.delete('/:id', (req, res) => res.send({ type: 'DELETE' }));
 
 app.listen(port, () => console.log(`app listening on port ${port}`))
 
-const uniqueId = function () {
-  return '_' + Math.random().toString(36).substr(2, 9);
-};
+
 
