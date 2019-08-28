@@ -6,14 +6,15 @@ const Schema = mongoose.Schema;
 const TweetSchema = new Schema({
   user: {
     type: String,
-    required: [true, "UserName required"]
+    default: 'My user'
   },
   handle: {
     type: String,
+    default: '@TweeterHandle'
   },
   timestamp: {
-    type: String,
-    default: false
+    type: Date,
+    default: Date.now
   },
   link: {
     type: String

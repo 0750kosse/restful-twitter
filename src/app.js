@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const Tweet = require('../models/tweet');
+const moment = require('moment');
 
 //set up express app
 const app = express();
@@ -29,23 +30,35 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/public')));
 
 // GET resources
-app.get('/', (req, res) => res.send({ type: 'GET' }));
-
-// POST to create new resource
-app.post('/', (req, res) => {
-
-  Tweet.create(req.body).then(function (tweet) {
-    res.send(tweet);
+app.get('/', (req, res) => {
+  Tweet.find({}).sort({ timestamp: -1 }).then(function (tweets) {
+    res.render('home', { tweets })
   });
 });
 
+// POST to create new resource
+app.post('/', (req, res, next) => {
+  Tweet.create(req.body).then(function (tweet) {
+    res.status(500).send(tweet)
+  }).catch(next)
+  res.redirect('/')
+});
+
 // PUT update an existing resource with a given id
-app.put('/:id', (req, res) => res.send({ type: 'PUT' }));
+app.put('/:id', (req, res, next) => res.send({ type: 'PUT' }));
 
 // DELETE to delete an existing resource with a given id
-app.delete('/:id', (req, res) => res.send({ type: 'DELETE' }));
+app.delete('/:id*?', (req, res, next) => {
+
+  Tweet.findByIdAndRemove({ _id: req.params.id }).then(function (tweet) {
+    res.status(500).send(tweet)
+  });
+  res.redirect('/')
+});
+
+//error handling middleware
+app.use(function (err, req, res, next) {
+  res.status(422).send({ error: err.message })
+});
 
 app.listen(port, () => console.log(`app listening on port ${port}`))
-
-
-
