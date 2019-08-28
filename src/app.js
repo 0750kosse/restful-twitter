@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const Tweet = require('../models/tweet');
 const moment = require('moment');
+const methodOverride = require('method-override')
 
 //set up express app
 const app = express();
@@ -28,6 +29,7 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(methodOverride('_method'));
 
 // GET resources
 app.get('/', (req, res) => {
@@ -52,7 +54,7 @@ app.delete('/:id*?', (req, res, next) => {
 
   Tweet.findByIdAndRemove({ _id: req.params.id }).then(function (tweet) {
     res.status(500).send(tweet)
-  });
+  }).catch(next)
   res.redirect('/')
 });
 
