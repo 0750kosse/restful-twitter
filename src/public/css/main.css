@@ -4,10 +4,9 @@ body,html {
   margin: 0px;
   padding: 0px;
   overflow-x: hidden;
- }
+}
 
 /* HEADER - NAV BAR */
-
 .nav-bar {
   border-bottom: 1px solid lightgrey;
   padding-bottom: 2%;
@@ -37,7 +36,6 @@ body,html {
 }
 
 /* SUB - HEADER */
-
 .nav-bar-subheader {
   display: flex;
   justify-content: space-evenly;
@@ -46,14 +44,12 @@ body,html {
 }
 
 /* FORM */
-
 .user-tweet {
   display: flex;
   justify-content: center;
   background-color: #E8F5FD;
   padding: 8%;
-  
-}
+  }
 
 input[type = text] {
   height: 50px;
@@ -75,14 +71,12 @@ input[type=text]:focus{
 }
 
 /* USER TWEET */
-
 input, .user-tweet__button {
   padding: 12px 20px;
   margin: 5px 0;
   border: 1px solid #C6E7FB;
   border-radius: 10px;
- 
-}
+ }
 
 button {
   background-color: #1DA1F2;
@@ -90,7 +84,6 @@ button {
 }
 
 /* FEED */
-
 .feed-user {
   display: flex;
   align-items: center;
@@ -153,7 +146,6 @@ button {
 }
 
 /* TWEET FOOTER */
-
 .tweet__footer {
   display: flex;
   margin-top: -30%;
