@@ -1,0 +1,24 @@
+<div class="update-wrapper">
+  <h1>Here you can edit your tweet</h1>
+  <form action="/update-tweet/{{tweet._id}}" method="post">
+    <div class="update-container">
+      <label for="tweet-Text"> Text :</label>
+      <input type="textarea" id="tweetText" class="tweet-description__text" name="text" placeholder="Enter text..."
+        value="{{tweet.text }}" autofocus="autofocus" required="required">
+
+      <label for="tweet-User"> User :</label>
+      <input type="text" id="Tweet_user" class="tweet-description__user" name="user" placeholder="Enter user..."
+        value="{{tweet.user}}" autofocus="autofocus" required="required">
+
+      <label for="tweet-Handle"> Handle :</label>
+      <input type="text" id="tweet-Handle" class="tweet-description__handle" name="handle" placeholder="Enter handle..."
+        value="{{tweet.handle}}" autofocus="autofocus" required="required">
+
+      <label for="tweet-Timestamp"> Edited :</label>
+      <input type="datetime-local" id="tweet-Timestamp" class="tweet-description__timestamp" name="timestamp"
+        placeholder="Enter time..." value="{{tweet.timestamp}}" autofocus="autofocus" required="required">
+
+      <input type="submit" class="tweet-update__submit" name="_method" value="edit">
+    </div>
+  </form>
+</div>

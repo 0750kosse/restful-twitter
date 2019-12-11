@@ -10,7 +10,7 @@ const methodOverride = require('method-override')
 const app = express();
 const router = require('./routes')
 //connect to mongodb
-mongoose.connect('mongodb://localhost/tweetapp', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/tweetapp', { useNewUrlParser: true, useFindAndModify: false })
 mongoose.Promise = global.Promise;
 
 const handlebars = exphbs.create({
