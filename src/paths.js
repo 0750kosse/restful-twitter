@@ -1,6 +1,7 @@
 const paths = {
   home: '/',
-  updateTweet: '/update-tweet',
+  updateTweet: '/api/tweet',
+  deleteTweet: '/api/tweet'
 }
 
 module.exports = paths;

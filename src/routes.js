@@ -42,20 +42,20 @@ function postUpdatedTweet(req, res, next) {
 
 // DELETE to delete an existing resource with a given id
 function deleteTweet(req, res, next) {
-  Tweet.findByIdAndRemove({ _id: req.params.id }).then((tweet) => {
-    const deletedTweet = {
-      user: tweet['user'],
-      handle: tweet['handle'],
-      text: tweet['text']
-    }
-    res.render('deleted-tweet', deleteTweet)
+  Tweet.findByIdAndDelete({ _id: req.params.id }).then((tweet) => {
+    res.redirect('/')
   })
-};
+}
 
 router.get(paths.home, getHome);
 router.post(paths.home, postTweet);
+
+router.delete(paths.deleteTweet + '/:id', deleteTweet);
 router.get(paths.updateTweet + '/:id', getTweetToUpdate)
 router.post(paths.updateTweet + '/:id', postUpdatedTweet)
-router.delete(paths.home + '/:id', deleteTweet);
 
 module.exports = router;
+
+
+
+

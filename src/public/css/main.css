@@ -161,3 +161,25 @@ button {
   margin-bottom: 5%;
   margin-left: 7%;
 }
+
+/* UPDATE TWEET STYLES */
+
+.update-wrapper {
+  padding : 3%;
+}
+
+.update-container {
+  padding : 3%;
+  border: 1px solid navy;
+  display: flex;
+  flex-flow: column;
+}
+
+label {
+  font-size: 16px;
+  padding : 3%;
+}
+
+.tweet-update__submit {
+width: 50%;
+}
